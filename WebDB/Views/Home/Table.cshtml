@@ -1,0 +1,360 @@
+﻿@model TabularSteamGenerator
+@{
+    ViewData["Title"] = "Таблица";
+}
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand">Ведомость</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark">Добро пожаловать, @ViewData["Login"]!</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Выход</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        <form method="post" asp-controller="Home" asp-action="Check3">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="50"><h1>Парогенератор</h1></th>
+                    </tr>
+                    <tr>
+                        <th rowspan="3"><h2>Часы</h2></th>
+                        <th colspan="4"><h2>Перегретый пар</h2></th>
+                        <th colspan="3"><h2>Питательная вода</h2></th>
+                        <th colspan="4"><h2>Газ</h2></th>
+                        <th colspan="3"><h2>Воздух</h2></th>
+                        <th rowspan="2"><h2>Температура подшипника РВП</h2></th>
+                        <th colspan="5"><h2>Дымовые газы</h2></th>
+                        <th colspan="2"><h2>Кислород</h2></th>
+                        <th rowspan="2"><h2>Расход непрерывной продувки</h2></th>
+                        <th colspan="5"><h2>Мазут</h2></th>
+                        <th colspan="6"><h2>Техническое водоснабжение</h2></th>
+                        <th colspan="2"><h2>БНС</h2></th>
+                        <th rowspan="2"><h2>Температура исходной воды теплосети</h2></th>
+                        <th colspan="6"><h2>Теплосеть I-ая магистраль</h2></th>
+                        <th colspan="6"><h2>Теплосеть II-ая магистраль</h2></th>
+                    </tr>
+                    <tr>
+                        <th colspan="1">расход</th>
+                        <th colspan="1">давление за котлом</th>
+                        <th colspan="1">давление в барабане котла</th>
+                        <th colspan="1">температура за котлом</th>
+                        <th colspan="1">расход</th>
+                        <th colspan="1">давление</th>
+                        <th colspan="1">температура</th>
+                        <th colspan="1">расход</th>
+                        <th colspan="1">давление до регулирующего клапана</th>
+                        <th colspan="1">давление после регулирующего клапана</th>
+                        <th colspan="1">температура</th>
+                        <th colspan="1">давление за РВП</th>
+                        <th colspan="1">температура за РВП</th>
+                        <th colspan="1">температура за калориферами</th>
+                        <th colspan="1">давление в топке котла</th>
+                        <th colspan="1">температура в левой части</th>
+                        <th colspan="1">температура в правой части</th>
+                        <th colspan="1">температура за ВЭ</th>
+                        <th colspan="1">температура за РВП</th>
+                        <th colspan="1">в левой части</th>
+                        <th colspan="1">в правой части</th>
+                        <th colspan="1">расход к котлам</th>
+                        <th colspan="1">давление к котлам</th>
+                        <th colspan="1">температура к котлам</th>
+                        <th colspan="1">температура за подогревателем №1</th>
+                        <th colspan="1">температура за подогревателем №2</th>
+                        <th colspan="1">расход встроенного пучка</th>
+                        <th colspan="1">Встроенный пучок. температура до</th>
+                        <th colspan="1">Встроенный пучок. температура после</th>
+                        <th colspan="1">расход встроенного пучка</th>
+                        <th colspan="1">Встроенный пучок. температура до</th>
+                        <th colspan="1">Встроенный пучок. температура после</th>
+                        <th colspan="1">расход воды</th>
+                        <th colspan="1">давление воды</th>
+                        <th colspan="1">расход прямого трубопровода</th>
+                        <th colspan="1">расход обратного трубопровода</th>
+                        <th colspan="1">давление прямого трубопровода</th>
+                        <th colspan="1">давление обратного трубопровода</th>
+                        <th colspan="1">температура прямого трубопровода</th>
+                        <th colspan="1">температура обратного трубопровода</th>
+                        <th colspan="1">расход прямого трубопровода</th>
+                        <th colspan="1">расход обратного трубопровода</th>
+                        <th colspan="1">давление прямого трубопровода</th>
+                        <th colspan="1">давление обратного трубопровода</th>
+                        <th colspan="1">температура прямого трубопровода</th>
+                        <th colspan="1">температура обратного трубопровода</th>
+                    </tr>
+                    <tr>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">тыс. нм³/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">мм. вод. ст.</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">мм. вод. ст.</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">%</th>
+                        <th colspan="1">%</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">м³/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">т/ч</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">кгс/см²</th>
+                        <th colspan="1">℃</th>
+                        <th colspan="1">℃</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                        <tr>
+                            <td>@(i * 2)</td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell1" value="@ViewBag.SteamList[0].Cell1" />
+                                <span asp-validation-for="list[i - 1].Cell1"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell2" value="@ViewBag.SteamList[0].Cell2" />
+                                <span asp-validation-for="list[i - 1].Cell2"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell3" value="@ViewBag.SteamList[0].Cell3" />
+                                <span asp-validation-for="list[i - 1].Cell3"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell4" value="@ViewBag.SteamList[0].Cell4" />
+                                <span asp-validation-for="list[i - 1].Cell4"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell5" value="@ViewBag.SteamList[0].Cell5" />
+                                <span asp-validation-for="list[i - 1].Cell5"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell6" value="@ViewBag.SteamList[0].Cell6" />
+                                <span asp-validation-for="list[i - 1].Cell6"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell7" value="@ViewBag.SteamList[0].Cell7" />
+                                <span asp-validation-for="list[i - 1].Cell7"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell8" value="@ViewBag.SteamList[0].Cell8" />
+                                <span asp-validation-for="list[i - 1].Cell8"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell9" value="@ViewBag.SteamList[0].Cell9" />
+                                <span asp-validation-for="list[i - 1].Cell9"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell10" value="@ViewBag.SteamList[0].Cell10" />
+                                <span asp-validation-for="list[i - 1].Cell10"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell11" value="@ViewBag.SteamList[0].Cell11" />
+                                <span asp-validation-for="list[i - 1].Cell11"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell12" value="@ViewBag.SteamList[0].Cell12" />
+                                <span asp-validation-for="list[i - 1].Cell12"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell13" value="@ViewBag.SteamList[0].Cell13" />
+                                <span asp-validation-for="list[i - 1].Cell13"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell14" value="@ViewBag.SteamList[0].Cell14" />
+                                <span asp-validation-for="list[i - 1].Cell14"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell15" value="@ViewBag.SteamList[0].Cell15" />
+                                <span asp-validation-for="list[i - 1].Cell15"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell16" value="@ViewBag.SteamList[0].Cell16" />
+                                <span asp-validation-for="list[i - 1].Cell16"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell17" value="@ViewBag.SteamList[0].Cell17" />
+                                <span asp-validation-for="list[i - 1].Cell17"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell18" value="@ViewBag.SteamList[0].Cell18" />
+                                <span asp-validation-for="list[i - 1].Cell18"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell19" value="@ViewBag.SteamList[0].Cell19" />
+                                <span asp-validation-for="list[i - 1].Cell19"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell20" value="@ViewBag.SteamList[0].Cell20" />
+                                <span asp-validation-for="list[i - 1].Cell20"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell21" value="@ViewBag.SteamList[0].Cell21" />
+                                <span asp-validation-for="list[i - 1].Cell21"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell22" value="@ViewBag.SteamList[0].Cell22" />
+                                <span asp-validation-for="list[i - 1].Cell22"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell23" value="@ViewBag.SteamList[0].Cell23" />
+                                <span asp-validation-for="list[i - 1].Cell23"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell24" value="@ViewBag.SteamList[0].Cell24" />
+                                <span asp-validation-for="list[i - 1].Cell24"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell25" value="@ViewBag.SteamList[0].Cell25" />
+                                <span asp-validation-for="list[i - 1].Cell25"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell26" value="@ViewBag.SteamList[0].Cell26" />
+                                <span asp-validation-for="list[i - 1].Cell26"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell27" value="@ViewBag.SteamList[0].Cell27" />
+                                <span asp-validation-for="list[i - 1].Cell27"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell28" value="@ViewBag.SteamList[0].Cell28" />
+                                <span asp-validation-for="list[i - 1].Cell28"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell29" value="@ViewBag.SteamList[0].Cell29" />
+                                <span asp-validation-for="list[i - 1].Cell29"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell30" value="@ViewBag.SteamList[0].Cell30" />
+                                <span asp-validation-for="list[i - 1].Cell30"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell31" value="@ViewBag.SteamList[0].Cell31" />
+                                <span asp-validation-for="list[i - 1].Cell31"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell32" value="@ViewBag.SteamList[0].Cell32" />
+                                <span asp-validation-for="list[i - 1].Cell32"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell33" value="@ViewBag.SteamList[0].Cell33" />
+                                <span asp-validation-for="list[i - 1].Cell33"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell34" value="@ViewBag.SteamList[0].Cell34" />
+                                <span asp-validation-for="list[i - 1].Cell34"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell35" value="@ViewBag.SteamList[0].Cell35" />
+                                <span asp-validation-for="list[i - 1].Cell35"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell36" value="@ViewBag.SteamList[0].Cell36" />
+                                <span asp-validation-for="list[i - 1].Cell36"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell37" value="@ViewBag.SteamList[0].Cell37" />
+                                <span asp-validation-for="list[i - 1].Cell37"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell38" value="@ViewBag.SteamList[0].Cell38" />
+                                <span asp-validation-for="list[i - 1].Cell38"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell39" value="@ViewBag.SteamList[0].Cell39" />
+                                <span asp-validation-for="list[i - 1].Cell39"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell40" value="@ViewBag.SteamList[0].Cell40" />
+                                <span asp-validation-for="list[i - 1].Cell40"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell41" value="@ViewBag.SteamList[0].Cell41" />
+                                <span asp-validation-for="list[i - 1].Cell41"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell42" value="@ViewBag.SteamList[0].Cell42" />
+                                <span asp-validation-for="list[i - 1].Cell42"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell43" value="@ViewBag.SteamList[0].Cell43" />
+                                <span asp-validation-for="list[i - 1].Cell43"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell44" value="@ViewBag.SteamList[0].Cell44" />
+                                <span asp-validation-for="list[i - 1].Cell44"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell45" value="@ViewBag.SteamList[0].Cell45" />
+                                <span asp-validation-for="list[i - 1].Cell45"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell46" value="@ViewBag.SteamList[0].Cell46" />
+                                <span asp-validation-for="list[i - 1].Cell46"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell47" value="@ViewBag.SteamList[0].Cell47" />
+                                <span asp-validation-for="list[i - 1].Cell47"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell48" value="@ViewBag.SteamList[0].Cell48" />
+                                <span asp-validation-for="list[i - 1].Cell48"></span>
+                            </td>
+                            <td>
+                                <input asp-for="list[i - 1].Cell49" value="@ViewBag.SteamList[0].Cell49" />
+                                <span asp-validation-for="list[i - 1].Cell49"></span>
+                            </td>
+                            </tr>
+                        }
+                </tbody>
+            </table>
+            <input type="submit" value="Подтвердить" />
+        </form>
+    </main>
+</div>
