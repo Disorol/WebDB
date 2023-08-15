@@ -1,4 +1,4 @@
-﻿@model TabularSteamGenerator
+﻿@model List<SteamGenerator>
 @{
     ViewData["Title"] = "Таблица";
 }
@@ -14,7 +14,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark">Добро пожаловать, @ViewData["Login"]!</a>
+                        <a class="nav-link text-dark">Добро пожаловать, @TempData["Login"]!</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Выход</a>
@@ -150,211 +150,214 @@
                     </tr>
                 </thead>
                 <tbody>
-                        @for (int i = 1; i <= 12; i++)
-                        {
+                    @for (int i = 0; i < 12; i++)
+                    {
                         <tr>
-                            <td>@(i * 2)</td>
+                            <td>@((i + 1) * 2)</td>
                             <td>
-                                <input asp-for="list[i - 1].Cell1" value="@ViewBag.SteamList[0].Cell1" />
-                                <span asp-validation-for="list[i - 1].Cell1"></span>
+                                <input asp-for="@Model[i].Cell1" value="@ViewBag.SteamList[i].Cell1" />
+                                <span asp-validation-for="@Model[i].Cell1"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell2" value="@ViewBag.SteamList[0].Cell2" />
-                                <span asp-validation-for="list[i - 1].Cell2"></span>
+                                <input asp-for="@Model[i].Cell2" value="@ViewBag.SteamList[i].Cell2" />
+                                <span asp-validation-for="@Model[i].Cell2"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell3" value="@ViewBag.SteamList[0].Cell3" />
-                                <span asp-validation-for="list[i - 1].Cell3"></span>
+                                <input asp-for="@Model[i].Cell3" value="@ViewBag.SteamList[i].Cell3" />
+                                <span asp-validation-for="@Model[i].Cell3"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell4" value="@ViewBag.SteamList[0].Cell4" />
-                                <span asp-validation-for="list[i - 1].Cell4"></span>
+                                <input asp-for="@Model[i].Cell4" value="@ViewBag.SteamList[i].Cell4" />
+                                <span asp-validation-for="@Model[i].Cell4"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell5" value="@ViewBag.SteamList[0].Cell5" />
-                                <span asp-validation-for="list[i - 1].Cell5"></span>
+                                <input asp-for="@Model[i].Cell5" value="@ViewBag.SteamList[i].Cell5" />
+                                <span asp-validation-for="@Model[i].Cell5"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell6" value="@ViewBag.SteamList[0].Cell6" />
-                                <span asp-validation-for="list[i - 1].Cell6"></span>
+                                <input asp-for="@Model[i].Cell6" value="@ViewBag.SteamList[i].Cell6" />
+                                <span asp-validation-for="@Model[i].Cell6"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell7" value="@ViewBag.SteamList[0].Cell7" />
-                                <span asp-validation-for="list[i - 1].Cell7"></span>
+                                <input asp-for="@Model[i].Cell7" value="@ViewBag.SteamList[i].Cell7" />
+                                <span asp-validation-for="@Model[i].Cell7"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell8" value="@ViewBag.SteamList[0].Cell8" />
-                                <span asp-validation-for="list[i - 1].Cell8"></span>
+                                <input asp-for="@Model[i].Cell8" value="@ViewBag.SteamList[i].Cell8" />
+                                <span asp-validation-for="@Model[i].Cell8"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell9" value="@ViewBag.SteamList[0].Cell9" />
-                                <span asp-validation-for="list[i - 1].Cell9"></span>
+                                <input asp-for="@Model[i].Cell9" value="@ViewBag.SteamList[i].Cell9" />
+                                <span asp-validation-for="@Model[i].Cell9"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell10" value="@ViewBag.SteamList[0].Cell10" />
-                                <span asp-validation-for="list[i - 1].Cell10"></span>
+                                <input asp-for="@Model[i].Cell10" value="@ViewBag.SteamList[i].Cell10" />
+                                <span asp-validation-for="@Model[i].Cell10"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell11" value="@ViewBag.SteamList[0].Cell11" />
-                                <span asp-validation-for="list[i - 1].Cell11"></span>
+                                <input asp-for="@Model[i].Cell11" value="@ViewBag.SteamList[i].Cell11" />
+                                <span asp-validation-for="@Model[i].Cell11"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell12" value="@ViewBag.SteamList[0].Cell12" />
-                                <span asp-validation-for="list[i - 1].Cell12"></span>
+                                <input asp-for="@Model[i].Cell12" value="@ViewBag.SteamList[i].Cell12" />
+                                <span asp-validation-for="@Model[i].Cell12"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell13" value="@ViewBag.SteamList[0].Cell13" />
-                                <span asp-validation-for="list[i - 1].Cell13"></span>
+                                <input asp-for="@Model[i].Cell13" value="@ViewBag.SteamList[i].Cell13" />
+                                <span asp-validation-for="@Model[i].Cell13"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell14" value="@ViewBag.SteamList[0].Cell14" />
-                                <span asp-validation-for="list[i - 1].Cell14"></span>
+                                <input asp-for="@Model[i].Cell14" value="@ViewBag.SteamList[i].Cell14" />
+                                <span asp-validation-for="@Model[i].Cell14"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell15" value="@ViewBag.SteamList[0].Cell15" />
-                                <span asp-validation-for="list[i - 1].Cell15"></span>
+                                <input asp-for="@Model[i].Cell15" value="@ViewBag.SteamList[i].Cell15" />
+                                <span asp-validation-for="@Model[i].Cell15"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell16" value="@ViewBag.SteamList[0].Cell16" />
-                                <span asp-validation-for="list[i - 1].Cell16"></span>
+                                <input asp-for="@Model[i].Cell16" value="@ViewBag.SteamList[i].Cell16" />
+                                <span asp-validation-for="@Model[i].Cell16"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell17" value="@ViewBag.SteamList[0].Cell17" />
-                                <span asp-validation-for="list[i - 1].Cell17"></span>
+                                <input asp-for="@Model[i].Cell17" value="@ViewBag.SteamList[i].Cell17" />
+                                <span asp-validation-for="@Model[i].Cell17"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell18" value="@ViewBag.SteamList[0].Cell18" />
-                                <span asp-validation-for="list[i - 1].Cell18"></span>
+                                <input asp-for="@Model[i].Cell18" value="@ViewBag.SteamList[i].Cell18" />
+                                <span asp-validation-for="@Model[i].Cell18"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell19" value="@ViewBag.SteamList[0].Cell19" />
-                                <span asp-validation-for="list[i - 1].Cell19"></span>
+                                <input asp-for="@Model[i].Cell19" value="@ViewBag.SteamList[i].Cell19" />
+                                <span asp-validation-for="@Model[i].Cell19"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell20" value="@ViewBag.SteamList[0].Cell20" />
-                                <span asp-validation-for="list[i - 1].Cell20"></span>
+                                <input asp-for="@Model[i].Cell20" value="@ViewBag.SteamList[i].Cell20" />
+                                <span asp-validation-for="@Model[i].Cell20"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell21" value="@ViewBag.SteamList[0].Cell21" />
-                                <span asp-validation-for="list[i - 1].Cell21"></span>
+                                <input asp-for="@Model[i].Cell21" value="@ViewBag.SteamList[i].Cell21" />
+                                <span asp-validation-for="@Model[i].Cell21"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell22" value="@ViewBag.SteamList[0].Cell22" />
-                                <span asp-validation-for="list[i - 1].Cell22"></span>
+                                <input asp-for="@Model[i].Cell22" value="@ViewBag.SteamList[i].Cell22" />
+                                <span asp-validation-for="@Model[i].Cell22"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell23" value="@ViewBag.SteamList[0].Cell23" />
-                                <span asp-validation-for="list[i - 1].Cell23"></span>
+                                <input asp-for="@Model[i].Cell23" value="@ViewBag.SteamList[i].Cell23" />
+                                <span asp-validation-for="@Model[i].Cell23"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell24" value="@ViewBag.SteamList[0].Cell24" />
-                                <span asp-validation-for="list[i - 1].Cell24"></span>
+                                <input asp-for="@Model[i].Cell24" value="@ViewBag.SteamList[i].Cell24" />
+                                <span asp-validation-for="@Model[i].Cell24"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell25" value="@ViewBag.SteamList[0].Cell25" />
-                                <span asp-validation-for="list[i - 1].Cell25"></span>
+                                <input asp-for="@Model[i].Cell25" value="@ViewBag.SteamList[i].Cell25" />
+                                <span asp-validation-for="@Model[i].Cell25"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell26" value="@ViewBag.SteamList[0].Cell26" />
-                                <span asp-validation-for="list[i - 1].Cell26"></span>
+                                <input asp-for="@Model[i].Cell26" value="@ViewBag.SteamList[i].Cell26" />
+                                <span asp-validation-for="@Model[i].Cell26"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell27" value="@ViewBag.SteamList[0].Cell27" />
-                                <span asp-validation-for="list[i - 1].Cell27"></span>
+                                <input asp-for="@Model[i].Cell27" value="@ViewBag.SteamList[i].Cell27" />
+                                <span asp-validation-for="@Model[i].Cell27"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell28" value="@ViewBag.SteamList[0].Cell28" />
-                                <span asp-validation-for="list[i - 1].Cell28"></span>
+                                <input asp-for="@Model[i].Cell28" value="@ViewBag.SteamList[i].Cell28" />
+                                <span asp-validation-for="@Model[i].Cell28"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell29" value="@ViewBag.SteamList[0].Cell29" />
-                                <span asp-validation-for="list[i - 1].Cell29"></span>
+                                <input asp-for="@Model[i].Cell29" value="@ViewBag.SteamList[i].Cell29" />
+                                <span asp-validation-for="@Model[i].Cell29"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell30" value="@ViewBag.SteamList[0].Cell30" />
-                                <span asp-validation-for="list[i - 1].Cell30"></span>
+                                <input asp-for="@Model[i].Cell30" value="@ViewBag.SteamList[i].Cell30" />
+                                <span asp-validation-for="@Model[i].Cell30"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell31" value="@ViewBag.SteamList[0].Cell31" />
-                                <span asp-validation-for="list[i - 1].Cell31"></span>
+                                <input asp-for="@Model[i].Cell31" value="@ViewBag.SteamList[i].Cell31" />
+                                <span asp-validation-for="@Model[i].Cell31"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell32" value="@ViewBag.SteamList[0].Cell32" />
-                                <span asp-validation-for="list[i - 1].Cell32"></span>
+                                <input asp-for="@Model[i].Cell32" value="@ViewBag.SteamList[i].Cell32" />
+                                <span asp-validation-for="@Model[i].Cell32"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell33" value="@ViewBag.SteamList[0].Cell33" />
-                                <span asp-validation-for="list[i - 1].Cell33"></span>
+                                <input asp-for="@Model[i].Cell33" value="@ViewBag.SteamList[i].Cell33" />
+                                <span asp-validation-for="@Model[i].Cell33"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell34" value="@ViewBag.SteamList[0].Cell34" />
-                                <span asp-validation-for="list[i - 1].Cell34"></span>
+                                <input asp-for="@Model[i].Cell34" value="@ViewBag.SteamList[i].Cell34" />
+                                <span asp-validation-for="@Model[i].Cell34"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell35" value="@ViewBag.SteamList[0].Cell35" />
-                                <span asp-validation-for="list[i - 1].Cell35"></span>
+                                <input asp-for="@Model[i].Cell35" value="@ViewBag.SteamList[i].Cell35" />
+                                <span asp-validation-for="@Model[i].Cell35"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell36" value="@ViewBag.SteamList[0].Cell36" />
-                                <span asp-validation-for="list[i - 1].Cell36"></span>
+                                <input asp-for="@Model[i].Cell36" value="@ViewBag.SteamList[i].Cell36" />
+                                <span asp-validation-for="@Model[i].Cell36"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell37" value="@ViewBag.SteamList[0].Cell37" />
-                                <span asp-validation-for="list[i - 1].Cell37"></span>
+                                <input asp-for="@Model[i].Cell37" value="@ViewBag.SteamList[i].Cell37" />
+                                <span asp-validation-for="@Model[i].Cell37"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell38" value="@ViewBag.SteamList[0].Cell38" />
-                                <span asp-validation-for="list[i - 1].Cell38"></span>
+                                <input asp-for="@Model[i].Cell38" value="@ViewBag.SteamList[i].Cell38" />
+                                <span asp-validation-for="@Model[i].Cell38"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell39" value="@ViewBag.SteamList[0].Cell39" />
-                                <span asp-validation-for="list[i - 1].Cell39"></span>
+                                <input asp-for="@Model[i].Cell39" value="@ViewBag.SteamList[i].Cell39" />
+                                <span asp-validation-for="@Model[i].Cell39"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell40" value="@ViewBag.SteamList[0].Cell40" />
-                                <span asp-validation-for="list[i - 1].Cell40"></span>
+                                <input asp-for="@Model[i].Cell40" value="@ViewBag.SteamList[i].Cell40" />
+                                <span asp-validation-for="@Model[i].Cell40"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell41" value="@ViewBag.SteamList[0].Cell41" />
-                                <span asp-validation-for="list[i - 1].Cell41"></span>
+                                <input asp-for="@Model[i].Cell41" value="@ViewBag.SteamList[i].Cell41" />
+                                <span asp-validation-for="@Model[i].Cell41"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell42" value="@ViewBag.SteamList[0].Cell42" />
-                                <span asp-validation-for="list[i - 1].Cell42"></span>
+                                <input asp-for="@Model[i].Cell42" value="@ViewBag.SteamList[i].Cell42" />
+                                <span asp-validation-for="@Model[i].Cell42"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell43" value="@ViewBag.SteamList[0].Cell43" />
-                                <span asp-validation-for="list[i - 1].Cell43"></span>
+                                <input asp-for="@Model[i].Cell43" value="@ViewBag.SteamList[i].Cell43" />
+                                <span asp-validation-for="@Model[i].Cell43"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell44" value="@ViewBag.SteamList[0].Cell44" />
-                                <span asp-validation-for="list[i - 1].Cell44"></span>
+                                <input asp-for="@Model[i].Cell44" value="@ViewBag.SteamList[i].Cell44" />
+                                <span asp-validation-for="@Model[i].Cell44"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell45" value="@ViewBag.SteamList[0].Cell45" />
-                                <span asp-validation-for="list[i - 1].Cell45"></span>
+                                <input asp-for="@Model[i].Cell45" value="@ViewBag.SteamList[i].Cell45" />
+                                <span asp-validation-for="@Model[i].Cell45"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell46" value="@ViewBag.SteamList[0].Cell46" />
-                                <span asp-validation-for="list[i - 1].Cell46"></span>
+                                <input asp-for="@Model[i].Cell46" value="@ViewBag.SteamList[i].Cell46" />
+                                <span asp-validation-for="@Model[i].Cell46"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell47" value="@ViewBag.SteamList[0].Cell47" />
-                                <span asp-validation-for="list[i - 1].Cell47"></span>
+                                <input asp-for="@Model[i].Cell47" value="@ViewBag.SteamList[i].Cell47" />
+                                <span asp-validation-for="@Model[i].Cell47"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell48" value="@ViewBag.SteamList[0].Cell48" />
-                                <span asp-validation-for="list[i - 1].Cell48"></span>
+                                <input asp-for="@Model[i].Cell48" value="@ViewBag.SteamList[i].Cell48" />
+                                <span asp-validation-for="@Model[i].Cell48"></span>
                             </td>
                             <td>
-                                <input asp-for="list[i - 1].Cell49" value="@ViewBag.SteamList[0].Cell49" />
-                                <span asp-validation-for="list[i - 1].Cell49"></span>
+                                <input asp-for="@Model[i].Cell49" value="@ViewBag.SteamList[i].Cell49" />
+                                <span asp-validation-for="@Model[i].Cell49"></span>
                             </td>
-                            </tr>
-                        }
+                        </tr>
+                    }
                 </tbody>
             </table>
-            <input type="submit" value="Подтвердить" />
+            <input type="submit" value="Подтвердить изменения" />
+        </form>
+        <form method="post" asp-controller="Home" asp-action="Check4">
+            <input type="submit" value="Выбрать другой день" />
         </form>
     </main>
 </div>

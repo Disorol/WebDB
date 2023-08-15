@@ -27,78 +27,22 @@ namespace WebDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isExists = CheckUser.Checking(user.Login, user.Password);
+                bool isExists = CheckUser.Check(user.Login, user.Password);
 
                 if (isExists)
                 {
-                    NpgsqlConnection connection = new NpgsqlConnection(connectionString: "Host=localhost; Database=WebTable; Username=postgres; Password=postgree77");
-                    connection.Open();
-                    NpgsqlCommand command = new NpgsqlCommand();
-                    command.Connection = connection;
-                    command.CommandText = $"SELECT * FROM public.\"steamgenerator\"";
-                    NpgsqlDataReader reader = command.ExecuteReader();
+                    DateOnly dateOnly = new DateOnly(2023, 08, 15);
+                    List<SteamGenerator> steamGeneratorList = GetTabularInformation.GetDailyTable(new DateOnly(2023, 08, 15));
 
-                    List<SteamGenerator> list = new List<SteamGenerator>();
+                    ViewBag.SteamList = steamGeneratorList;
 
-                    while (reader.Read())
-                    {
-                        list.Add(new SteamGenerator
-                        {
-                            Cell1 = reader.GetInt32(1),
-                            Cell2 = reader.GetInt32(2),
-                            Cell3 = reader.GetInt32(3),
-                            Cell4 = reader.GetInt32(4),
-                            Cell5 = reader.GetInt32(5),
-                            Cell6 = reader.GetInt32(6),
-                            Cell7 = reader.GetInt32(7),
-                            Cell8 = reader.GetInt32(8),
-                            Cell9 = reader.GetInt32(9),
-                            Cell10 = reader.GetInt32(10),
-                            Cell11 = reader.GetInt32(11),
-                            Cell12 = reader.GetInt32(12),
-                            Cell13 = reader.GetInt32(13),
-                            Cell14 = reader.GetInt32(14),
-                            Cell15 = reader.GetInt32(15),
-                            Cell16 = reader.GetInt32(16),
-                            Cell17 = reader.GetInt32(17),
-                            Cell18 = reader.GetInt32(18),
-                            Cell19 = reader.GetInt32(19),
-                            Cell20 = reader.GetInt32(20),
-                            Cell21 = reader.GetInt32(21),
-                            Cell22 = reader.GetInt32(22),
-                            Cell23 = reader.GetInt32(23),
-                            Cell24 = reader.GetInt32(24),
-                            Cell25 = reader.GetInt32(25),
-                            Cell26 = reader.GetInt32(26),
-                            Cell27 = reader.GetInt32(27),
-                            Cell28 = reader.GetInt32(28),
-                            Cell29 = reader.GetInt32(29),
-                            Cell30 = reader.GetInt32(30),
-                            Cell31 = reader.GetInt32(31),
-                            Cell32 = reader.GetInt32(32),
-                            Cell33 = reader.GetInt32(33),
-                            Cell34 = reader.GetInt32(34),
-                            Cell35 = reader.GetInt32(35),
-                            Cell36 = reader.GetInt32(36),
-                            Cell37 = reader.GetInt32(37),
-                            Cell38 = reader.GetInt32(38),
-                            Cell39 = reader.GetInt32(39),
-                            Cell40 = reader.GetInt32(40),
-                            Cell41 = reader.GetInt32(41),
-                            Cell42 = reader.GetInt32(42),
-                            Cell43 = reader.GetInt32(43),
-                            Cell44 = reader.GetInt32(44),
-                            Cell45 = reader.GetInt32(45),
-                            Cell46 = reader.GetInt32(46),
-                            Cell47 = reader.GetInt32(47),
-                            Cell48 = reader.GetInt32(48),
-                            Cell49 = reader.GetInt32(49),
-                        });
-                    }
+                    // TempData отказывается хранить DateOnly
+                    TempData["SelectedDate"] = dateOnly.ToString();
 
-                    ViewBag.SteamList = list;
-                    ViewData["Login"] = user.Login;
-                    ViewData["Password"] = user.Password;
+                    TempData["Login"] = user.Login;
+
+                    TempData.Keep("SelectedDate");
+                    TempData.Keep("Login");
 
                     return View("Table");
                 }
@@ -114,7 +58,7 @@ namespace WebDB.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool isExists = CheckUser.Checking(userReg.Login, userReg.Password);
+                bool isExists = CheckUser.Check(userReg.Login, userReg.Password);
 
                 if (!isExists)
                 {
@@ -124,6 +68,7 @@ namespace WebDB.Controllers
                     command.Connection = connection;
                     command.CommandText = $"INSERT INTO public.\"User\"(\"Login\", \"Password\") VALUES ('{userReg.Login}', '{userReg.Password}')";
                     command.ExecuteNonQuery();
+                    connection.Close();
 
                     return View("Index");
                 }
@@ -137,10 +82,111 @@ namespace WebDB.Controllers
         }
 
         [HttpPost]
-        public IActionResult Check3(TabularSteamGenerator tabularSteamGenerator)
+        public IActionResult Check3(List<SteamGenerator> steamGenerators)
         {
+            List<int> allIdsByDate = GetTabularInformation.GetAllIdsByDate(DateOnly.Parse(TempData["SelectedDate"].ToString()));
+
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString: "Host=localhost; Database=WebTable; Username=postgres; Password=postgree77");
+            connection.Open();
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+
+            for (int i = 0; i < steamGenerators.Count; i++)
+            {
+                command.CommandText = $"UPDATE public.\"steamgenerator\" SET " +
+                    $"cell1={steamGenerators[i].Cell1}, " +
+                    $"cell2={steamGenerators[i].Cell2}, " +
+                    $"cell3={steamGenerators[i].Cell3}, " +
+                    $"cell4={steamGenerators[i].Cell4}, " +
+                    $"cell5={steamGenerators[i].Cell5}, " +
+                    $"cell6={steamGenerators[i].Cell6}, " +
+                    $"cell7={steamGenerators[i].Cell7}, " +
+                    $"cell8={steamGenerators[i].Cell8}, " +
+                    $"cell9={steamGenerators[i].Cell9}, " +
+                    $"cell10={steamGenerators[i].Cell10}, " +
+                    $"cell11={steamGenerators[i].Cell11}, " +
+                    $"cell12={steamGenerators[i].Cell12}, " +
+                    $"cell13={steamGenerators[i].Cell13}, " +
+                    $"cell14={steamGenerators[i].Cell14}, " +
+                    $"cell15={steamGenerators[i].Cell15}, " +
+                    $"cell16={steamGenerators[i].Cell16}, " +
+                    $"cell17={steamGenerators[i].Cell17}, " +
+                    $"cell18={steamGenerators[i].Cell18}, " +
+                    $"cell19={steamGenerators[i].Cell19}, " +
+                    $"cell20={steamGenerators[i].Cell20}, " +
+                    $"cell21={steamGenerators[i].Cell21}, " +
+                    $"cell22={steamGenerators[i].Cell22}, " +
+                    $"cell23={steamGenerators[i].Cell23}, " +
+                    $"cell24={steamGenerators[i].Cell24}, " +
+                    $"cell25={steamGenerators[i].Cell25}, " +
+                    $"cell26={steamGenerators[i].Cell26}, " +
+                    $"cell27={steamGenerators[i].Cell27}, " +
+                    $"cell28={steamGenerators[i].Cell28}, " +
+                    $"cell29={steamGenerators[i].Cell29}, " +
+                    $"cell30={steamGenerators[i].Cell30}, " +
+                    $"cell31={steamGenerators[i].Cell31}, " +
+                    $"cell32={steamGenerators[i].Cell32}, " +
+                    $"cell33={steamGenerators[i].Cell33}, " +
+                    $"cell34={steamGenerators[i].Cell34}, " +
+                    $"cell35={steamGenerators[i].Cell35}, " +
+                    $"cell36={steamGenerators[i].Cell36}, " +
+                    $"cell37={steamGenerators[i].Cell37}, " +
+                    $"cell38={steamGenerators[i].Cell38}, " +
+                    $"cell39={steamGenerators[i].Cell39}, " +
+                    $"cell40={steamGenerators[i].Cell40}, " +
+                    $"cell41={steamGenerators[i].Cell41}, " +
+                    $"cell42={steamGenerators[i].Cell42}, " +
+                    $"cell43={steamGenerators[i].Cell43}, " +
+                    $"cell44={steamGenerators[i].Cell44}, " +
+                    $"cell45={steamGenerators[i].Cell45}, " +
+                    $"cell46={steamGenerators[i].Cell46}, " +
+                    $"cell47={steamGenerators[i].Cell47}, " +
+                    $"cell48={steamGenerators[i].Cell48}, " +
+                    $"cell49={steamGenerators[i].Cell49} WHERE id = {allIdsByDate[i]};";
+
+                command.ExecuteNonQuery();
+            }
+
+            List<SteamGenerator> steamGeneratorList = GetTabularInformation.GetDailyTable(DateOnly.Parse(TempData["SelectedDate"].ToString()));
+
+            ViewBag.SteamList = steamGeneratorList;
+
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
             return View("Table");
         }
+
+        [HttpPost]
+        public IActionResult Check4()
+        {
+            HashSet<string> allDates = GetTabularInformation.GetAllDates();
+
+            ViewBag.DTList = allDates;
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
+            return View("DateSelection");
+        }
+
+        [HttpPost]
+        public IActionResult Check5(SelectedDate selectedDate)
+        {
+            HashSet<string> allDates = GetTabularInformation.GetAllDates();
+
+            List<SteamGenerator> steamGeneratorList = GetTabularInformation.GetDailyTable(DateOnly.Parse(selectedDate.SDate));
+
+            ViewBag.SteamList = steamGeneratorList;
+            ViewBag.DTList = allDates;
+
+            TempData["SelectedDate"] = selectedDate.SDate;
+
+            TempData.Keep("Login");
+            TempData.Keep("SelectedDate");
+
+            return View("Table");
+        }
+
 
         public IActionResult SignUp()
         {

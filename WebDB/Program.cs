@@ -10,8 +10,6 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<AppDbContext>(option => option.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

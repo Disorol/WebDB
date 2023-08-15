@@ -2,6 +2,7 @@
 {
     public class SteamGenerator
     {
+        public int Id { get; set; }
         public int Cell1 { get; set; }
         public int Cell2 { get; set; }
         public int Cell3 { get; set; }

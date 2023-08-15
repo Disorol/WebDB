@@ -5,7 +5,7 @@ namespace WebDB.Data
 {
     public static class CheckUser
     {
-        public static Boolean Checking(string login, string password)
+        public static Boolean Check(string login, string password)
         {
             NpgsqlConnection connection = new NpgsqlConnection(connectionString: "Host=localhost; Database=WebTable; Username=postgres; Password=postgree77");
             connection.Open();
