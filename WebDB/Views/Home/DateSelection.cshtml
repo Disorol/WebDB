@@ -26,25 +26,71 @@
 </header>
 <div class="container">
     <main role="main" class="pb-3">
-        <div class="reg-form-div">
-            <h1 class="reg-form-h1">@ViewData["Title"]</h1>
-        </div>
-
         <div>
-            <form method="post" asp-controller="Home" asp-action="Check5">
-                <div class="form">
-                    <select asp-for="SDate">
-                        @foreach (string date in ViewBag.DTList)
-                        {
-                            <option>@date</option>
-                                
-                        }
-                    </select>
-                    <span asp-validation-for="SDate"></span>
+            <div>
+                <div class="reg-form-div">
+                    <h1 class="date-selection">@ViewData["Title"]</h1>
                 </div>
 
-                <div class="form-button">
-                    <input type="submit" value="Подтвердить" />
+                <br />
+
+                <div>
+                    <form method="post" asp-controller="Home" asp-action="Check5">
+                        <div class="form">
+                            <select asp-for="SDate">
+                                @foreach (string date in ViewBag.DTList)
+                                {
+                                    <option>@date</option>
+                                
+                                }
+                            </select>
+                            <span asp-validation-for="SDate"></span>
+                        </div>
+
+                        <br />
+
+                        <div class="outer-div">
+                            <input type="submit" value="Подтвердить" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div>
+                <div class="reg-form-div">
+                    <h1 class="date-selection">Новая дата</h1>
+                </div>
+
+                <br />
+
+                <div>
+                    <form method="post" asp-controller="Home" asp-action="CheckCreateDate">
+                        <span asp-validation-for="SDate"></span>
+
+                        <div class="outer-div">
+                            <input type="date"
+                                   value="2023-01-01"
+                                   min="2023-01-01"
+                                   max="2024-12-31" 
+                                   asp-for="SDate" />
+                        </div>
+
+                        <br />
+
+                        <div class="outer-div">
+                            <input type="submit" value="Подтвердить" />
+                        </div>
+                    </form>
+            </div>
+
+            <br />
+
+            <form method="post" asp-controller="Home" asp-action="CheckComeBack">
+                <div class="outer-div">
+                    <input type="submit" value="Вернуться" />
                 </div>
             </form>
         </div>

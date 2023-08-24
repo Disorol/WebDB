@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Reflection.Metadata.Ecma335;
 using WebDB.Data;
 using WebDB.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebDB.Controllers
 {
@@ -147,12 +148,16 @@ namespace WebDB.Controllers
                 command.ExecuteNonQuery();
             }
 
+            connection.Close();
+
             List<SteamGenerator> steamGeneratorList = GetTabularInformation.GetDailyTable(DateOnly.Parse(TempData["SelectedDate"].ToString()));
 
             ViewBag.SteamList = steamGeneratorList;
 
             TempData.Keep("SelectedDate");
             TempData.Keep("Login");
+
+            TrackingChanges.AddChange(TempData["Login"].ToString(), "Редактирование значений ячеек таблицы", TempData["SelectedDate"].ToString(), DateTime.Now.ToString());
 
             return View("Table");
         }
@@ -187,6 +192,153 @@ namespace WebDB.Controllers
             return View("Table");
         }
 
+        [HttpPost]
+        public IActionResult CheckBack()
+        {
+            HashSet<string> allDates = GetTabularInformation.GetAllDates();
+
+            ViewBag.DTList = allDates;
+
+            string dateBack = DateOnly.Parse(TempData["SelectedDate"].ToString()).AddDays(-1).ToString();
+
+            foreach (string i in allDates)
+            {
+                if (i == dateBack) // Дата позади выбранной существует.
+                {
+                    TempData["SelectedDate"] = dateBack;
+                    break;
+                }
+            }
+
+            List<SteamGenerator> steamGeneratorList = 
+                GetTabularInformation.GetDailyTable(DateOnly.Parse(TempData["SelectedDate"].ToString()));
+
+            ViewBag.SteamList = steamGeneratorList;
+            ViewBag.DTList = allDates;
+
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
+            return View("Table");
+        }
+
+        [HttpPost]
+        public IActionResult CheckNext()
+        {
+            HashSet<string> allDates = GetTabularInformation.GetAllDates();
+
+            ViewBag.DTList = allDates;
+
+            string dateBack = DateOnly.Parse(TempData["SelectedDate"].ToString()).AddDays(1).ToString();
+
+            foreach (string i in allDates)
+            {
+                if (i == dateBack) // Дата после выбранной существует.
+                {
+                    TempData["SelectedDate"] = dateBack;
+                    break;
+                }
+            }
+
+            List<SteamGenerator> steamGeneratorList =
+                GetTabularInformation.GetDailyTable(DateOnly.Parse(TempData["SelectedDate"].ToString()));
+
+            ViewBag.SteamList = steamGeneratorList;
+            ViewBag.DTList = allDates;
+
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
+            return View("Table");
+        }
+
+        [HttpPost]
+        public IActionResult CheckCreateDate(SelectedDate selectedDate)
+        {
+            HashSet<string> allDates = GetTabularInformation.GetAllDates();
+
+            ViewBag.DTList = allDates;
+
+            List<SteamGenerator> steamGeneratorList;
+
+            foreach (string i in allDates)
+            {
+                if (i == selectedDate.SDate) // Выбранная дата уже сущетвует.
+                {
+                    steamGeneratorList =
+                        GetTabularInformation.GetDailyTable(DateOnly.Parse(selectedDate.SDate));
+
+                    ViewBag.SteamList = steamGeneratorList;
+
+                    TempData.Keep("SelectedDate");
+                    TempData.Keep("Login");
+
+                    return View("Table");
+                }
+            }
+
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString: "Host=localhost; Database=WebTable; Username=postgres; Password=postgree77");
+            connection.Open();
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+
+            for (int i = 0; i < 12; i++)
+            {
+                command.CommandText = $"INSERT INTO public.steamgenerator(cell1, cell2, cell3, " +
+                    $"cell4, cell5, cell6, cell7, cell8, cell9, cell10, cell11, cell12, " +
+                    $"cell13, cell14, cell15, cell16, cell17, cell18, cell19, cell20, " +
+                    $"cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, " +
+                    $"cell29, cell30, cell31, cell32, cell33, cell34, cell35, cell36, " +
+                    $"cell37, cell38, cell39, cell40, cell41, cell42, cell43, cell44, " +
+                    $"cell45, cell46, cell47, cell48, cell49, \"Day\") VALUES (-999, " +
+                    $"-999, -999, -999, -999, -999, -999, -999, -999, -999, -999, -999," +
+                    $" -999, -999, -999, -999, -999, -999, -999, -999, -999, -999, -999," +
+                    $" -999, -999, -999, -999, -999, -999, -999, -999, -999, -999, -999," +
+                    $" -999, -999, -999, -999, -999, -999, -999, -999, -999, -999, -999," +
+                    $" -999, -999, -999, -999, '{selectedDate.SDate}');";
+
+                command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+
+            steamGeneratorList =
+                        GetTabularInformation.GetDailyTable(DateOnly.Parse(selectedDate.SDate));
+
+            ViewBag.SteamList = steamGeneratorList;
+
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
+            TrackingChanges.AddChange(TempData["Login"].ToString(), "Создание таблицы", TempData["SelectedDate"].ToString(), DateTime.Now.ToString());
+
+            return View("Table");
+        }
+
+        [HttpPost]
+        public IActionResult CheckHistory()
+        {
+            List<History> histories = TrackingChanges.ReturnHistory();
+            
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
+            return View("History", histories);
+        }
+
+        [HttpPost]
+        public IActionResult CheckComeBack()
+        {
+            List<SteamGenerator> steamGeneratorList =
+                GetTabularInformation.GetDailyTable(DateOnly.Parse(TempData["SelectedDate"].ToString()));
+
+            ViewBag.SteamList = steamGeneratorList;
+
+            TempData.Keep("SelectedDate");
+            TempData.Keep("Login");
+
+            return View("Table");
+        }
 
         public IActionResult SignUp()
         {
